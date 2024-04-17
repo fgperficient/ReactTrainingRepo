@@ -1,51 +1,60 @@
 import classes from "./Counter.module.css";
-import { Component } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
+import { counterActions } from "../store";
+import { useSelector, useDispatch } from "react-redux";
 
 const Counter = () => {
   const dispatch = useDispatch();
   const counter = useSelector(state => {
-    return state?.counter ?? 0;
+    return state?.counter?.counter ?? 0;
   });
 
   const show = useSelector(state => {
-    return state?.showCounter ?? true;
+    return state?.counter?.showCounter ?? true;
   });
+
+  const isAuthenticated = useSelector(state => {
+    return state.auth.isAuthenticated;
+  });
+
   const toggleCounterHandler = () => {
-    dispatch({ type: "toogle" });
+    dispatch(counterActions.toogleCounter());
   };
 
   const incrementHandler = () => {
-    dispatch({ type: "increment" });
+    dispatch(counterActions.increment());
   };
 
   const increaseHandler = () => {
-    dispatch({ type: "increment", payload: { amount: 5 } });
+    dispatch(counterActions.increment({ amount: 5 }));
   };
 
   const decrementHandler = () => {
-    dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
 
   return (
-    <main className={classes.counter}>
-      <h1>Redux Counter</h1>
-      <div className={classes.value}>{show && counter}</div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          width: "100%",
-          marginBottom: "40px"
-        }}
-      >
-        <button onClick={incrementHandler}>Increment</button>
-        <button onClick={increaseHandler}>Increase</button>
-        <button onClick={decrementHandler}>Decrement</button>
-      </div>
-      <button onClick={toggleCounterHandler}>Toggle Counter</button>
-    </main>
+    <>
+      {isAuthenticated && (
+        <main className={classes.counter}>
+          <h1>Redux Counter</h1>
+          <div className={classes.value}>{show && counter}</div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              width: "100%",
+              marginBottom: "40px"
+            }}
+          >
+            <button onClick={incrementHandler}>Increment</button>
+            <button onClick={increaseHandler}>Increase</button>
+            <button onClick={decrementHandler}>Decrement</button>
+          </div>
+          <button onClick={toggleCounterHandler}>Toggle Counter</button>
+        </main>
+      )}
+    </>
   );
 };
 /*
