@@ -13,3 +13,9 @@ In this Repository will have the practice proyects for the React Training of Fra
 6-Travel Selector proyect to undestand customHooks with http call topics.
 
 7-FoodApp proyects that envolves all topics of the previous proyects.
+
+8- Redux demo without react
+
+9- React Redux Counter - proyect with redux, redux toolkit
+
+10 - advanced Redux - proyect with redux, redux toolkit , redux saga
